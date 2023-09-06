@@ -1,0 +1,44 @@
+Is this MVP really minimal?
+    F05 should be reduced to just rolling once and scoring from there since we don't want to have to implement any logic as to when to stop rolling and if we only stop rolling when 3 or more skulls are obtained which would result in no points ever being accumulated and the game never ending. Furthermore, F06 is more complicated than we need right now, and instead we should just implement the scoring for the gold and diamond dice. Lastly, having the user specify the number of simulations to run is not strictly necessary for the MVP, instead we should opt for a fixed number of runs for this version.
+Is this MVP really viable?
+    F05 makes this version not viable since if the players keep rolling until they get 3 skulls to end their turn they will never accumulate points and the game will never end. Therefore, as previously mentioned we should have the players roll once and then take the score from there.
+Can some features be simplified?
+    As mentioned in both previous paragraphs F05 should be simplified to only roll once a turn before scoring and F06 should be switched to just implementing the scoring for individual gold and diamond rolls
+Which part of your code do you consider to be technical debt?
+    Player creation is hard coded in and there is no way to vary the number of players easily without rewriting the game loop.
+Do you think your features were the right size? Too big? Too small?
+    Some of my features were quite small, especially towards the end of v1.0 as there were many small last minute touch ups or things that I had forgotten about that needed to be added to make everything work
+Is it worth tracking the realization of each feature in the backlog? As a tag in the VCS?
+    No, for especially easy features to implement it is often more work and takes longer to maintain the backlog and tags. Tags should be saved for complete versions that can work on their own and small features should be grouped together more in the backlog.
+Does it make sense to sacrifice quality in the long run? For short-term?
+    In order to make sure we are heading in the direction we need to be able to give our client a MVP so we should do our best to accommodate that. However, under the assumption that we did in fact understand our client correctly we should keep in mind that we will have to fix whatever messes we have made and design the program to be able to be modified into the full version without completely redoing it.
+What are your plans to reimburse this debt during the next iteration?
+    Add in ways to control the number of simulation runs as well as control the number of players which will require a redo of most of the PiratenKarpen.java file where I implemented much of the core part of the game.
+What are the pros and cons of delivering the MVP first and then repaying your debt?
+    It enables you to make sure you are doing what the client wants and heading in the right direction. However, since we want the MVP done as quickly as possible it is usually lower quality code than would be used for the final product and must be fixed which can be very time consuming and wastful.
+Could you have developed your MVP with less technical debt? If so, what prevented you from doing so?
+    It appears to me that there was not much technical debt left for me to rectify since most of the tasks in the MVP were fairly simple to implement and therefore were written with better code that does not need to be edited after the fact.
+What are the pros and cons of using logging mechanisms instead of print statements?
+    Since they are a separate entity from print statements we can easily disable them and have the program run normally with minimal effort. Additionally, they provide a easy way to get other data from them like date/time etc.
+Introducing Log4J is not a feature. It does not add business value to the product. How could we track the progress of such development activities?
+    Create separate documentation to track the development of the logging statements that is more targeted at the developers rather than for the end user since they are for the devs use and will primarily not be used by anyone else.
+Were you able to deliver all the features during this iteration? If yes, was it challenging? If not, how did you decide which features could be pushed to the next iteration?
+    I was able to deliver all features except controlling the strategies via command line. I was unable to pass command line arguments with maven and have thus pushed that to a later release. For now I have made it such that as soon as I am able to figure out how to input the command lines the program will accept them but it still works without command lines for now with random as the default.
+What is your status in terms of technical debts?
+    Implementing command lines may require a bit of work but otherwise there is not to much debt. Adding more players may be difficult, but I have yet to gauge exactly how much debt that is.
+How did the object orientation of your code support the introduction of the new strategy and scoring mechanism?
+    It was quite easy to add a strategy enum and attribute to the players. Additionally, via a switch statement the different strategies can be called with the same method and just change based on the player internal attributes.
+What was the impact of introducing the card deck into your simulator?
+    Small so far, however, this made the gap between combo and random strategies much greater as the combo strategy will more often have enough cards to reap the benefits from the battle cards due to collecting more cards of one type.
+What drove your choices if you had to mix features from the previous step with ones from this step?
+    Somewhat trying to think ahead to what will be added in the future and how I can lower my technical debt while writing my code so that I do not as much work in the future when adding more features.
+Are you still in debt in terms of code quality? If yes, how to reimburse it? If not, how did you prevent it?
+    Adding cards has made the takeTurn method much longer and more complex. I will refactor it into multiple methods (ie. separate the scoring, etc...) and also try to extract my many switch and if statements into something more simple.
+Which object-oriented mechanism are you using to support the switch between the “combo” strategy and “sea battle” one inside your player?
+    Players have an attribute called strategy to control this using a Enum interface and then a switch statement controls what they do on their turn.
+Describe from a coarse-grained perspective how the remaining cards will be implemented in your simulator if you have a couple more of iterations. What would be the technical difficulty of each one?
+    The treasure chest card would be implemented by still scoring what is stored in it regardless of the number of skulls. However, creating a strategy to implement this would be tricky to create from a pure mental perspective (not technical). Perhaps I could have it work like the combo strategy and have the player save ones that are a combo or save all diamond and gold rolls. The captain card would be easy as well as it would just add a multiplier to the score. The scorcerous card would be again easy to implement but deciding when to use it would be tricky. It would probably be effective if it's used on the first skull rolled unless the player immediately goes to the island of skulls. Gold and Diamond cards are also easy to add, just add it like the gold and diamond dice. Same for the skull card.
+Your client is seriously annoyed that the “Island of Skulls” mechanics is unavailable. What would be the impact of introducing this mechanism in your code?
+    It would be minimal unless it was its own strategy or integrated into the other strategies. Perhaps the random strategy would benefit since it's the most likely to roll that many skulls.
+Are you still in debt? How would this debt influence the upcoming development?
+    The takeTurn code is pretty messy after introducing all the card features. The upcoming development would not be impacted but it would make maintaining the code much harder and be quite a distribution for anyone adding to it in the future including myself after a while.
